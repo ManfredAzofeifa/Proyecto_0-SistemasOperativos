@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/main.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/main.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/main.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/main.c.o"
+},
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/random_utils.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/random_utils.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/random_utils.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/random_utils.c.o"
+},
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/puente.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/puente.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/puente.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/puente.c.o"
+},
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/auto.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/auto.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/auto.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/auto.c.o"
+},
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/config.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/config.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/config.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/config.c.o"
+},
+{
+  "directory": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug",
+  "command": "/usr/bin/cc -g -fdiagnostics-color=always -o CMakeFiles/proyecto_1_puente.dir/cola.c.o -c \"/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cola.c\"",
+  "file": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cola.c",
+  "output": "/home/jose/Desktop/C - Sistemas Operativos/proyecto-1-puente/cmake-build-debug/CMakeFiles/proyecto_1_puente.dir/cola.c.o"
+}
+]
