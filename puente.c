@@ -424,3 +424,11 @@ void salir_puente(int direccion)
 
     pthread_mutex_unlock(&mutex);
 }
+
+void puente_get_turno_info(int *turno_out, int *autos_turno_out)
+{
+    pthread_mutex_lock(&mutex);
+    *turno_out       = turno;
+    *autos_turno_out = autos_turno;
+    pthread_mutex_unlock(&mutex);
+}

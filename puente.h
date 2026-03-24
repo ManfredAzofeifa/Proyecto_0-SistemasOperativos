@@ -19,4 +19,6 @@ void entrar_puente(int direccion, int ambulancia);
 void avanzar_este(int velocidad);
 
 void avanzar_oeste(int velocidad);
+
+void puente_get_turno_info(int *turno_out, int *autos_turno_out);
 #endif

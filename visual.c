@@ -157,9 +157,9 @@ static void draw_semaphore(SDL_Renderer *ren, int cx, int pole_y,
 
 static void draw_priority_box(SDL_Renderer *ren, int win_w)
 {
-    int bw = 180, bh = 50;
+    int bw = 180, bh = 80;
     int bx = win_w/2 - bw/2;
-    int by = WIN_HEIGHT - 70;
+    int by = WIN_HEIGHT - 100;
 
     fill_rect(ren, bx+3, by+3, bw, bh, C_SHADOW);
     fill_rect(ren, bx, by, bw, bh, C_PRIO_BOX);
@@ -167,11 +167,20 @@ static void draw_priority_box(SDL_Renderer *ren, int win_w)
 
     render_text(ren, font_sm, "TURNO ACTUAL", bx+bw/2, by+14, C_TEXT, 1);
 
-    const char *dir_str;
-    if(priority_dir == ESTE)  dir_str = "ESTE  ->";
-    else                      dir_str = "<-  OESTE";
+    const char *dir_str = (priority_dir == ESTE) ? "ESTE  ->" : "<-  OESTE";
+    render_text(ren, font_med, dir_str, bx+bw/2, by+32, C_AMBUL, 1);
 
-    render_text(ren, font_med, dir_str, bx+bw/2, by+36, C_AMBUL, 1);
+    int turno_actual, autos_turno_actual;
+    puente_get_turno_info(&turno_actual, &autos_turno_actual);
+
+    int limite = (turno_actual == ESTE) ? k_este : k_oeste;
+
+    char buf[48];
+    snprintf(buf, sizeof(buf), "Max: %d", limite);
+    render_text(ren, font_sm, buf, bx+bw/2, by+52, C_TEXT, 1);
+
+    snprintf(buf, sizeof(buf), "Permitidos: %d", autos_turno_actual);
+    render_text(ren, font_sm, buf, bx+bw/2, by+68, C_AMBUL, 1);
 }
 
 static void draw_queue_este(SDL_Renderer *ren, int bridge_x0)
