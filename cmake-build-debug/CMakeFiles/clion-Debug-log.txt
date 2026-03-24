@@ -1,5 +1,11 @@
-/snap/clion/425/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/425/bin/ninja/linux/x64/ninja -G Ninja -S "/home/jose/Desktop/C - Sistemas Operativos/saico-puente/Proyecto_1/proyecto-1-puente" -B "/home/jose/Desktop/C - Sistemas Operativos/saico-puente/Proyecto_1/proyecto-1-puente/cmake-build-debug"
--- Configuring done (0.1s)
+/snap/clion/425/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/425/bin/ninja/linux/x64/ninja -G Ninja -S "/home/jose/Desktop/C - Sistemas Operativos/FinalPuente/proyecto-1-puente" -B "/home/jose/Desktop/C - Sistemas Operativos/FinalPuente/proyecto-1-puente/cmake-build-debug"
+-- The C compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (1.1s)
 CMake Error at CMakeLists.txt:6 (add_executable):
   Cannot find source file:
 

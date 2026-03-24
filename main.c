@@ -72,7 +72,7 @@ int velocidad_auto(int direccion)
 
 double tiempo_exponencial(double media)
 {
-    double u = (double)rand() / RAND_MAX;
+    double u = ((double)rand()+1) / (RAND_MAX+1.0);
     return -media * log(u);
 }
 

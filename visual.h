@@ -1,7 +1,7 @@
 #ifndef VISUAL_H
 #define VISUAL_H
 
-void  visual_init(int longitud);
+void  visual_init(int longitud_real);
 
 void  visual_set(int pos, int valor);
 void  visual_clear(int pos);

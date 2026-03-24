@@ -51,7 +51,7 @@ static int parse_modo(char* valor)
 {
     if(strcmp(valor,"carnage")==0)  return MODO_CARNAGE;
     if(strcmp(valor,"semaforo")==0) return MODO_SEMAFORO;
-    if(strcmp(valor,"oficial")==0)  return MODO_POLICIA;
+    if(strcmp(valor,"policia")==0)  return MODO_POLICIA;
 
     printf("Modo desconocido: %s\n", valor);
     exit(1);

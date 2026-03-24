@@ -8,6 +8,7 @@
 #include "puente.h"
 #include "config.h"
 
+#define VISUAL_CELLS 20
 #define CELL_W       52
 #define CELL_H       36
 #define CAR_W        44
@@ -17,6 +18,14 @@
 #define LEFT_MARGIN  220
 #define WIN_HEIGHT   320
 #define SEM_R         18
+#define NUM_MARKS     5
+#define MAX_QUEUE 1000
+
+static int queue_este[MAX_QUEUE];
+static int queue_oeste[MAX_QUEUE];
+
+static int head_este = 0, tail_este = 0;
+static int head_oeste = 0, tail_oeste = 0;
 
 static int          *bridge_state;
 static float        *smooth_pos;
@@ -165,29 +174,28 @@ static void draw_priority_box(SDL_Renderer *ren, int win_w)
     render_text(ren, font_med, dir_str, bx+bw/2, by+36, C_AMBUL, 1);
 }
 
-static void draw_queue_este(SDL_Renderer *ren, int bridge_x0,
-                            int cnt_normal, int cnt_ambul)
+static void draw_queue_este(SDL_Renderer *ren, int bridge_x0)
 {
+    int size = tail_este - head_este;
+    if(size > QUEUE_SLOTS) size = QUEUE_SLOTS;
 
-    int total = cnt_normal + cnt_ambul;
-    if(total > QUEUE_SLOTS) total = QUEUE_SLOTS;
-    for(int i = 0; i < total; i++)
+    for(int i = 0; i < size; i++)
     {
+        int tipo = queue_este[head_este + i];
         int x = bridge_x0 - (i+1)*CELL_W - 4;
-        int tipo = (i < cnt_ambul) ? 3 : 1;
         draw_car(ren, x, BRIDGE_Y - CAR_H/2, tipo);
     }
 }
 
-static void draw_queue_oeste(SDL_Renderer *ren, int bridge_x1,
-                             int cnt_normal, int cnt_ambul)
+static void draw_queue_oeste(SDL_Renderer *ren, int bridge_x1)
 {
-    int total = cnt_normal + cnt_ambul;
-    if(total > QUEUE_SLOTS) total = QUEUE_SLOTS;
-    for(int i = 0; i < total; i++)
+    int size = tail_oeste - head_oeste;
+    if(size > QUEUE_SLOTS) size = QUEUE_SLOTS;
+
+    for(int i = 0; i < size; i++)
     {
+        int tipo = queue_oeste[head_oeste + i];
         int x = bridge_x1 + i*CELL_W + 4;
-        int tipo = (i < cnt_ambul) ? 3 : 2;
         draw_car(ren, x, BRIDGE_Y - CAR_H/2, tipo);
     }
 }
@@ -227,26 +235,58 @@ int visual_get(int pos)
 void visual_esperando(int direccion, int ambulancia)
 {
     pthread_mutex_lock(&vmutex);
-    if(direccion == ESTE) { cola_este++; if(ambulancia) ambul_este++; }
-    else                  { cola_oeste++;if(ambulancia) ambul_oeste++;}
+
+    int tipo = ambulancia ? 3 : (direccion == ESTE ? 1 : 2);
+
+    if(direccion == ESTE)
+    {
+        queue_este[tail_este++] = tipo;
+        cola_este++;
+        if(ambulancia) ambul_este++;
+    }
+    else
+    {
+        queue_oeste[tail_oeste++] = tipo;
+        cola_oeste++;
+        if(ambulancia) ambul_oeste++;
+    }
+
     pthread_mutex_unlock(&vmutex);
 }
 
 void visual_deja_esperar(int direccion, int ambulancia)
 {
     pthread_mutex_lock(&vmutex);
+
     if(direccion == ESTE)
     {
+        if(head_este < tail_este)
+            head_este++;
+
         cola_este--;
         if(cola_este < 0) cola_este = 0;
-        if(ambulancia) { ambul_este--; if(ambul_este < 0) ambul_este = 0; }
+
+        if(ambulancia)
+        {
+            ambul_este--;
+            if(ambul_este < 0) ambul_este = 0;
+        }
     }
     else
     {
+        if(head_oeste < tail_oeste)
+            head_oeste++;
+
         cola_oeste--;
         if(cola_oeste < 0) cola_oeste = 0;
-        if(ambulancia) { ambul_oeste--; if(ambul_oeste < 0) ambul_oeste = 0; }
+
+        if(ambulancia)
+        {
+            ambul_oeste--;
+            if(ambul_oeste < 0) ambul_oeste = 0;
+        }
     }
+
     pthread_mutex_unlock(&vmutex);
 }
 
@@ -296,7 +336,7 @@ void* visual_loop(void* arg)
 
 
     int queue_w   = QUEUE_SLOTS * CELL_W + 20;
-    int bridge_px = bridge_len * CELL_W;
+    int bridge_px = VISUAL_CELLS * CELL_W;
     int win_w     = queue_w + bridge_px + queue_w;
     int bridge_x0 = queue_w;
     int bridge_x1 = bridge_x0 + bridge_px;
@@ -354,25 +394,22 @@ void* visual_loop(void* arg)
         }
 
 
-        for(int i=0; i<=bridge_len; i++)
+        for(int i=0; i<=VISUAL_CELLS; i++)
         {
             int px = bridge_x0 + i*CELL_W;
             fill_rect(ren, px-2, BRIDGE_Y+22, 4, 30, (Color){80,80,90,255});
         }
 
 
-
-
-        draw_queue_este(ren,  bridge_x0, cola_este-ambul_este,  ambul_este);
-        draw_queue_oeste(ren, bridge_x1, cola_oeste-ambul_oeste,ambul_oeste);
-
-
+        draw_queue_este(ren, bridge_x0);
+        draw_queue_oeste(ren, bridge_x1);
 
 
         for(int i=0;i<bridge_len;i++)
         {
             if(bridge_state[i] == 0) continue;
-            int px = bridge_x0 + (int)(smooth_pos[i] * CELL_W);
+            float escala = (float)VISUAL_CELLS / bridge_len;
+            int px = bridge_x0 + (int)(smooth_pos[i] * escala * CELL_W);
             int py = BRIDGE_Y - CAR_H/2;
             draw_car(ren, px, py, bridge_state[i]);
         }
