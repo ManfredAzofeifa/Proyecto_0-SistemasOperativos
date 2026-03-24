@@ -70,6 +70,7 @@ media_llegadas_este  = 1.5
 media_llegadas_oeste = 2.0
 
 # Car speed range (arbitrary units)
+# Speed varies based of the average given, it will never be more than the max set and less than the mininum set
 velocidad_promedio_este = 50
 vel_min_este            = 30
 vel_max_este            = 70
@@ -105,5 +106,8 @@ tiempo_semaforo_oeste = 5
 ```
 
 ## Authors
+
+Manfred Azofeifa Salazar
+Jose Adrián Herrera Salas
 
 <!-- Add your names here -->
